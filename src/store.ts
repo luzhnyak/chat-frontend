@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 import { IUser } from "./types";
-import { currentUser, logout, login, register } from "./services/chatApi";
+import { currentUser, login, register } from "./services/chatApi";
 
 interface TokenState {
   token: string | null;
@@ -64,7 +64,7 @@ export const useAuth = create<AuthState>()(
       },
       logout: async () => {
         try {
-          await logout();
+          // await logout();
           const tokenState = useToken.getState();
           tokenState.setTokenState("");
           set(() => ({ currentUser: null, isLogin: false }));
