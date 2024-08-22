@@ -1,0 +1,136 @@
+.wrapper {
+  width: 438px;
+  padding: 20px;
+  margin: 100px auto;
+  border: 1px solid var(--primary-color-fon);
+  border-radius: 20px;
+  @media only screen and (max-width: 767px) {
+    width: 400px;
+  }
+  @media only screen and (max-width: 475px) {
+    width: 100%;
+  }
+}
+
+.title {
+  margin: 0 0 20px 0;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-black);
+}
+
+.text {
+  margin: 0 0 40px 0;
+  line-height: 22px;
+  color: rgba(18, 20, 23, 0.8);
+  @media only screen and (max-width: 475px) {
+    margin: 0 0 20px 0;
+  }
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputWrapper:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+.input {
+  padding: 16px 18px;
+  box-sizing: border-box;
+  color: var(--primary-color-black);
+  width: 100%;
+  height: 54px;
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+}
+
+.inputError {
+  border: 1px solid red;
+}
+
+.inputError:focus {
+  border: 1px solid red;
+  outline: 1px solid red;
+}
+
+.errormessage {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  color: red;
+  font-size: 14px;
+}
+
+.btnShowPassword {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.reason {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.radioWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.radioWrapper label {
+  cursor: pointer;
+}
+
+.inputRadio {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--primary-color-fon);
+}
+
+.btn {
+  cursor: pointer;
+  width: 100%;
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+
+  background: var(--primary-color-fon);
+  border: none;
+  border-radius: 12px;
+
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.btn:hover,
+.btn:active {
+  background: var(--secondary-color-fon);
+}
+
+.link {
+  display: block;
+  margin: 16px auto;
+  width: 80px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
