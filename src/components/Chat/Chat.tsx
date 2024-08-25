@@ -1,12 +1,13 @@
-import Contact from "../Contact/Contact";
 import css from "./Chat.module.css";
 import testImg from "../../images/photo/photo-3.jpg";
 import { useAuth } from "../../store";
 import HeaderRight from "../HeaderRight/HeaderRight";
+import ContactsList from "../ContactsList/ContactsList";
 
 const Chat = () => {
-  const { logout } = useAuth((state) => ({
+  const { logout, currentUser } = useAuth((state) => ({
     logout: state.logout,
+    currentUser: state.currentUser,
   }));
 
   return (
@@ -22,6 +23,7 @@ const Chat = () => {
               height={50}
             />
           </div>
+          <h1 className={css.userName}>{currentUser?.name}</h1>
           <button className={css.logoutBtn} onClick={logout}>
             Logout
           </button>
@@ -29,24 +31,7 @@ const Chat = () => {
         <div className={css.search}>
           <input className={css.searchInput} type="text" />
         </div>
-        <ul className={css.list}>
-          <li>
-            <Contact
-              name="Oleg"
-              lastMessage="Hello!"
-              time="22/08/2024"
-              avatar=""
-            />
-          </li>
-          <li>
-            <Contact
-              name="Oleg"
-              lastMessage="Hello!"
-              time="22/08/2024"
-              avatar=""
-            />
-          </li>
-        </ul>
+        <ContactsList />
       </div>
       <div className={css.right}>
         <HeaderRight name="Oleg" avatar="" />

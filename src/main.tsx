@@ -8,29 +8,34 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { RestrictedRoute } from "./pages/RestrictedRoute";
 import { PrivateRoute } from "./pages/PrivateRoute";
+import { SharedLayout } from "./components/SharedLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    // errorElement: <NotFoundPage />,
-    element: <PrivateRoute component={<ChatPage />} redirectTo="/login" />,
-  },
-  {
-    path: "/chat",
-    // errorElement: <NotFoundPage />,
-    element: <PrivateRoute component={<ChatPage />} redirectTo="/login" />,
-  },
-  {
-    path: "/login",
-    // errorElement: <NotFoundPage />,
-    element: <RestrictedRoute component={<LoginPage />} redirectTo="/chat" />,
-  },
-  {
-    path: "/register",
-    // errorElement: <NotFoundPage />,
-    element: (
-      <RestrictedRoute component={<RegisterPage />} redirectTo="/chat" />
-    ),
+    element: <SharedLayout />,
+    children: [
+      {
+        index: true,
+        element: <PrivateRoute component={<ChatPage />} redirectTo="/login" />,
+      },
+      {
+        path: "/chat",
+        element: <PrivateRoute component={<ChatPage />} redirectTo="/login" />,
+      },
+      {
+        path: "/login",
+        element: (
+          <RestrictedRoute component={<LoginPage />} redirectTo="/chat" />
+        ),
+      },
+      {
+        path: "/register",
+        element: (
+          <RestrictedRoute component={<RegisterPage />} redirectTo="/chat" />
+        ),
+      },
+    ],
   },
 ]);
 

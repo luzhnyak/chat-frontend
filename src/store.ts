@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import { IUser } from "./types";
+import { IUser, IChat } from "./types";
 import { currentUser, login, register } from "./services/chatApi";
+import { getChats, getCurrentChat } from "./services/chatApi";
 
 interface TokenState {
   token: string | null;
@@ -19,7 +20,8 @@ export const useToken = create<TokenState>()(
         },
       }),
       { name: "token" }
-    )
+    ),
+    { name: "token" }
   )
 );
 
@@ -47,7 +49,7 @@ export const useAuth = create<AuthState>()(
           const data = await register(user);
           const tokenState = useToken.getState();
           tokenState.setTokenState(data.token);
-          set(() => ({ currentUser: data, isLogin: true }));
+          set(() => ({ currentUser: data.user, isLogin: true }));
         } catch (error) {
           console.error(error);
         }
@@ -57,7 +59,7 @@ export const useAuth = create<AuthState>()(
           const data = await login(user);
           const tokenState = useToken.getState();
           tokenState.setTokenState(data.token);
-          set(() => ({ currentUser: data, isLogin: true }));
+          set(() => ({ currentUser: data.user, isLogin: true }));
         } catch (error) {
           console.error(error);
         }
@@ -75,12 +77,45 @@ export const useAuth = create<AuthState>()(
       getCurrentUser: async () => {
         try {
           const data = await currentUser();
-          set(() => ({ currentUser: data, isLogin: true }));
+          set(() => ({ currentUser: data.user, isLogin: true }));
         } catch (error) {
           console.error(error);
         }
       },
     }),
     { name: "auth" }
+  )
+);
+
+interface ChatState {
+  chats: IChat[] | null;
+  currentChat: IChat | null;
+  getChats: () => void;
+  getCurrentChat: (id: string) => void;
+}
+
+export const useChat = create<ChatState>()(
+  devtools(
+    (set) => ({
+      chats: null,
+      currentChat: null,
+      getChats: async () => {
+        try {
+          const data = await getChats();
+          set(() => ({ chats: data }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      getCurrentChat: async (id: string) => {
+        try {
+          const data = await getCurrentChat(id);
+          set(() => ({ currentChat: data }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    }),
+    { name: "chat" }
   )
 );

@@ -16,6 +16,10 @@
   padding: 8px 16px;
 }
 
+.userName {
+  font-size: 20px;
+}
+
 .search {
   padding: 8px 16px;
   border-bottom: 1px solid var(--secondary-color-fon);
@@ -54,12 +58,6 @@
 
 .logoutBtn:hover {
   background-color: var(--secondary-color-fon);
-}
-
-.list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
 }
 
 .right {
