@@ -1,0 +1,33 @@
+.wrapper {
+  height: 100%;
+  margin-bottom: auto;
+  overflow-y: scroll;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.itemOwn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+.message {
+  width: auto;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: var(--secondary-color-fon-50);
+  margin-bottom: 8px;
+}

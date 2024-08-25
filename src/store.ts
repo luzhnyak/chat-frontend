@@ -1,9 +1,14 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import { IUser, IChat } from "./types";
+import { IUser, IChat, IMessage } from "./types";
 import { currentUser, login, register } from "./services/chatApi";
-import { getChats, getCurrentChat } from "./services/chatApi";
+import {
+  getChats,
+  getCurrentChat,
+  getMessages,
+  addMessage,
+} from "./services/chatApi";
 
 interface TokenState {
   token: string | null;
@@ -91,7 +96,7 @@ interface ChatState {
   chats: IChat[] | null;
   currentChat: IChat | null;
   getChats: () => void;
-  getCurrentChat: (id: string) => void;
+  getCurrentChat: (id: string, avatar: string) => void;
 }
 
 export const useChat = create<ChatState>()(
@@ -107,15 +112,46 @@ export const useChat = create<ChatState>()(
           console.error(error);
         }
       },
-      getCurrentChat: async (id: string) => {
+      getCurrentChat: async (id: string, avatar: string) => {
         try {
           const data = await getCurrentChat(id);
-          set(() => ({ currentChat: data }));
+          set(() => ({ currentChat: { ...data, avatar } }));
         } catch (error) {
           console.error(error);
         }
       },
     }),
     { name: "chat" }
+  )
+);
+
+interface MessageState {
+  messages: IMessage[];
+  getMessages: (chatId: string) => void;
+  addMessage: (text: string, chatId: string) => void;
+}
+
+export const useMessage = create<MessageState>()(
+  devtools(
+    (set) => ({
+      messages: [],
+      getMessages: async (chatId: string) => {
+        try {
+          const data = await getMessages(chatId);
+          set(() => ({ messages: data }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      addMessage: async (text: string, chatId: string) => {
+        try {
+          const data = await addMessage(text, chatId);
+          set((state) => ({ messages: [...state.messages, data] }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    }),
+    { name: "message" }
   )
 );

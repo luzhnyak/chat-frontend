@@ -76,3 +76,22 @@ export const getCurrentChat = async (id: string) => {
     showError(error as AxiosError);
   }
 };
+
+export const getMessages = async (chatId: string) => {
+  try {
+    const { data } = await axios.get(`/messages/${chatId}`);
+    return data;
+  } catch (error) {
+    showError(error as AxiosError);
+  }
+};
+
+export const addMessage = async (text: string, chatId: string) => {
+  try {
+    const { data } = await axios.post("/messages", { text, chatId });
+
+    return data;
+  } catch (error) {
+    showError(error as AxiosError);
+  }
+};

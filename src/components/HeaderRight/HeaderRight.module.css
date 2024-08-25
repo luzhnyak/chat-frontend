@@ -1,5 +1,6 @@
 .wrapper {
   display: flex;
+  align-items: center;
   padding: 12px;
   gap: 12px;
   color: var(--primary-color-black);

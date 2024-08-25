@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  padding: 8px 16px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  color: var(--primary-color-black);
+  height: 36px;
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+}
+
+.btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

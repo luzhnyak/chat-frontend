@@ -1,13 +1,19 @@
 import css from "./Chat.module.css";
 import testImg from "../../images/photo/photo-3.jpg";
-import { useAuth } from "../../store";
+import { useAuth, useChat } from "../../store";
 import HeaderRight from "../HeaderRight/HeaderRight";
 import ContactsList from "../ContactsList/ContactsList";
+import MessageForm from "../MessageForm/MessageForm";
+import Messages from "../Messages/Messages";
 
 const Chat = () => {
   const { logout, currentUser } = useAuth((state) => ({
     logout: state.logout,
     currentUser: state.currentUser,
+  }));
+
+  const { currentChat } = useChat((state) => ({
+    currentChat: state.currentChat,
   }));
 
   return (
@@ -18,7 +24,7 @@ const Chat = () => {
             <img
               className={css.image}
               src={testImg}
-              alt={"Oleg Luzhnyak"}
+              alt={currentUser?.name}
               width={50}
               height={50}
             />
@@ -34,10 +40,13 @@ const Chat = () => {
         <ContactsList />
       </div>
       <div className={css.right}>
-        <HeaderRight name="Oleg" avatar="" />
-        <div className={css.enter}>
-          <input className={css.enterInput} type="text" />
-        </div>
+        {currentChat && (
+          <>
+            <HeaderRight />
+            <Messages />
+            <MessageForm />
+          </>
+        )}
       </div>
     </div>
   );

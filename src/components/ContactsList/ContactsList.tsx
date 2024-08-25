@@ -17,19 +17,20 @@ const ContactsList = () => {
   return (
     <ul className={css.list}>
       {chats &&
-        chats.map((chat) => {
+        chats.map((chat, idx) => {
           return (
             <li
               key={chat._id}
               onClick={() => {
-                if (chat._id) getCurrentChat(chat._id);
+                if (chat._id)
+                  getCurrentChat(chat._id, `/avatars/${idx + 1}.jpg`);
               }}
             >
               <Contact
                 name={`${chat.name} ${chat.surName}`}
-                lastMessage="Hello!"
+                lastMessage={chat?.lastMessage || ""}
                 time="22/08/2024"
-                avatar=""
+                avatar={`/avatars/${idx + 1}.jpg`}
               />
             </li>
           );

@@ -1,7 +1,5 @@
 import { FC } from "react";
 import css from "./Contact.module.css";
-import testImg from "../../images/photo/photo-1.jpg";
-// import { useChat } from "../../store";
 
 interface IProps {
   avatar: string;
@@ -10,7 +8,7 @@ interface IProps {
   time: string;
 }
 
-const Contact: FC<IProps> = ({ name, lastMessage, time }) => {
+const Contact: FC<IProps> = ({ avatar, name, lastMessage, time }) => {
   // const { currentChat, getCurrentChat } = useChat((state) => ({
   //   currentChat: state.currentChat,
   //   getCurrentChat: state.getCurrentChat,
@@ -21,7 +19,7 @@ const Contact: FC<IProps> = ({ name, lastMessage, time }) => {
       <div className={css.imageWrapper}>
         <img
           className={css.image}
-          src={testImg}
+          src={avatar}
           alt={name}
           width={64}
           height={64}
