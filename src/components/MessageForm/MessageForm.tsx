@@ -1,9 +1,15 @@
 import { FormEvent, useState } from "react";
+
 import css from "./MessageForm.module.css";
-import { useChat, useMessage } from "../../store";
+import { useAuth, useChat, useMessage } from "../../store";
+import { getSocket } from "../../socket";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
+
+  const { currentUser } = useAuth((state) => ({
+    currentUser: state.currentUser,
+  }));
 
   const { currentChat } = useChat((state) => ({
     currentChat: state.currentChat,
@@ -16,8 +22,14 @@ const MessageForm = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log("message", message);
+
     if (currentChat) {
-      addMessage(message, currentChat._id!);
+      if (message.trim()) {
+        addMessage(message, currentUser?.name || "", currentChat._id!);
+        const socket = getSocket();
+        socket.emit("message", { text: message, chatId: currentChat._id });
+        setMessage("");
+      }
     }
     setMessage("");
   };

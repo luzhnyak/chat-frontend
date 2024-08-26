@@ -134,3 +134,32 @@
   font-size: 18px;
   font-weight: 600;
 }
+
+.googleLogin {
+  margin-top: 22px;
+  padding: 28px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color-blue);
+  background-color: var(--primary-color-white);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  height: 44px;
+  text-decoration-line: none;
+  text-align: center;
+  box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.googleLogin:hover,
+.googleLogin:focus {
+  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+}
+
+.googleLogin:active {
+  background: var(--Primery-Color-Blue, #407bff);
+}

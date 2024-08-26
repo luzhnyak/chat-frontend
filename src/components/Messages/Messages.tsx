@@ -1,16 +1,46 @@
 import { useEffect } from "react";
-import { useChat, useMessage } from "../../store";
+import { useAuth, useChat, useMessage, useToken } from "../../store";
 import css from "./Messages.module.css";
+import { connectSocket, disconnectSocket, getSocket } from "../../socket";
 
 const Messages = () => {
   const { currentChat } = useChat((state) => ({
     currentChat: state.currentChat,
   }));
 
-  const { messages, getMessages } = useMessage((state) => ({
+  const { currentUser } = useAuth((state) => ({
+    currentUser: state.currentUser,
+  }));
+
+  const { messages, getMessages, addMessage } = useMessage((state) => ({
     messages: state.messages,
     getMessages: state.getMessages,
+    addMessage: state.addMessage,
   }));
+
+  const { token } = useToken((state) => ({
+    token: state.token,
+  }));
+
+  useEffect(() => {
+    connectSocket(token!);
+
+    const socket = getSocket();
+
+    socket.on(
+      "message",
+      (msg: { text: string; author: string; chatId: string }) => {
+        console.log("addd", msg);
+
+        addMessage(msg.text, msg.author, msg.chatId);
+      }
+    );
+
+    return () => {
+      socket.off("message"); // Вимкнення слухача перед відключенням
+      disconnectSocket();
+    };
+  }, [token, addMessage]);
 
   useEffect(() => {
     if (currentChat) {
@@ -23,7 +53,12 @@ const Messages = () => {
       <ul className={css.list}>
         {messages?.map((message) => {
           return (
-            <li className={css.item} key={message?._id}>
+            <li
+              className={
+                message.author === currentUser?.name ? css.itemOwn : css.item
+              }
+              key={message?._id}
+            >
               <span className={css.message}>{message?.text}</span>
               <span>
                 {message && new Date(message.createdAt!).toLocaleString()}

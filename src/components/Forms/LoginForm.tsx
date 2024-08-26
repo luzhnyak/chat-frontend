@@ -3,6 +3,7 @@ import css from "./Form.module.css";
 import * as yup from "yup";
 import eye from "../../images/eye.svg";
 import eyeOff from "../../images/eye-off.svg";
+import googleIcon from "../../images/google-icon.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../store";
@@ -44,10 +45,6 @@ const LoginForm = () => {
   return (
     <div className={css.wrapper}>
       <h3 className={css.title}>Login</h3>
-      <p className={css.text}>
-        Welcome back! Please enter your credentials to access your account and
-        continue your search for an teacher.
-      </p>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={css.inputWrapper}>
@@ -83,6 +80,13 @@ const LoginForm = () => {
           Log In
         </button>
       </form>
+      <a
+        className={css.googleLogin}
+        href="http://localhost:5000/api/auth/google"
+      >
+        <img src={googleIcon} width={20} height={20} alt="google" />
+        Enter with Google
+      </a>
       <Link className={css.link} to="/register">
         Register
       </Link>

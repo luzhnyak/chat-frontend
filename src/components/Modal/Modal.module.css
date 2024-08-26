@@ -1,0 +1,55 @@
+.backdrop {
+  background-color: var(--backdrop-color-black);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.modal {
+  background-color: var(--primary-color-white);
+  border-radius: 30px;
+
+  padding: 64px;  
+  min-width: 280px;
+  min-height: 100px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  max-height: calc(100vh);
+  overflow: auto;
+  @media only screen and (max-width: 767px) {
+    padding: 32px;
+  }
+  @media only screen and (max-width: 475px) {
+    width: 90%;
+    padding: 24px;
+  }
+}
+
+.btnClose {
+  position: absolute;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
+  scale: 1;
+}
+
+.btnClose:hover,
+.btnClose:hover {
+  scale: 1.1;
+}
+
+.content {
+  margin: 0;
+}

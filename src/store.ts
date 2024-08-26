@@ -3,12 +3,7 @@ import { devtools, persist } from "zustand/middleware";
 
 import { IUser, IChat, IMessage } from "./types";
 import { currentUser, login, register } from "./services/chatApi";
-import {
-  getChats,
-  getCurrentChat,
-  getMessages,
-  addMessage,
-} from "./services/chatApi";
+import { getChats, getCurrentChat, getMessages } from "./services/chatApi";
 
 interface TokenState {
   token: string | null;
@@ -128,7 +123,7 @@ export const useChat = create<ChatState>()(
 interface MessageState {
   messages: IMessage[];
   getMessages: (chatId: string) => void;
-  addMessage: (text: string, chatId: string) => void;
+  addMessage: (text: string, author: string, chatId: string) => void;
 }
 
 export const useMessage = create<MessageState>()(
@@ -143,10 +138,15 @@ export const useMessage = create<MessageState>()(
           console.error(error);
         }
       },
-      addMessage: async (text: string, chatId: string) => {
+      addMessage: async (text: string, author: string, chatId: string) => {
         try {
-          const data = await addMessage(text, chatId);
-          set((state) => ({ messages: [...state.messages, data] }));
+          // const data = await addMessage(text, chatId);
+          set((state) => ({
+            messages: [
+              ...state.messages,
+              { text, author, chatId, createdAt: Date().toString() },
+            ],
+          }));
         } catch (error) {
           console.error(error);
         }

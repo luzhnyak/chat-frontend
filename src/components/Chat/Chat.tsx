@@ -1,6 +1,7 @@
 import css from "./Chat.module.css";
-import testImg from "../../images/photo/photo-3.jpg";
+import profileImg from "../../images/photo/profile.png";
 import { useAuth, useChat } from "../../store";
+
 import HeaderRight from "../HeaderRight/HeaderRight";
 import ContactsList from "../ContactsList/ContactsList";
 import MessageForm from "../MessageForm/MessageForm";
@@ -23,7 +24,7 @@ const Chat = () => {
           <div className={css.imageWrapper}>
             <img
               className={css.image}
-              src={testImg}
+              src={profileImg}
               alt={currentUser?.name}
               width={50}
               height={50}

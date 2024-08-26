@@ -10,7 +10,6 @@ export interface IMessage {
   _id?: string;
   text: string;
   author: string;
-  date: string;
   createdAt?: string;
 }
 

@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { RestrictedRoute } from "./pages/RestrictedRoute";
 import { PrivateRoute } from "./pages/PrivateRoute";
 import { SharedLayout } from "./components/SharedLayout";
+import { AuthPage } from "./pages/AuthPage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
         element: (
           <RestrictedRoute component={<RegisterPage />} redirectTo="/chat" />
         ),
+      },
+      {
+        path: "/auth",
+        element: <AuthPage redirectTo="/chat" />,
       },
     ],
   },
