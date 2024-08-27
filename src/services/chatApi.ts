@@ -1,9 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { IUser } from "../types";
 import { showError } from "./showError";
-// import { showError } from "./showError";
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = `${import.meta.env.VITE_APP_BASE_API_URL}/api`;
 
 export const setToken = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;

@@ -82,7 +82,7 @@ const LoginForm = () => {
       </form>
       <a
         className={css.googleLogin}
-        href="http://localhost:5000/api/auth/google"
+        href={`${import.meta.env.VITE_APP_BASE_API_URL}/api/auth/google`}
       >
         <img src={googleIcon} width={20} height={20} alt="google" />
         Enter with Google
