@@ -76,6 +76,33 @@ export const getCurrentChat = async (id: string) => {
   }
 };
 
+export const addChat = async (name: string, surName: string) => {
+  try {
+    const { data } = await axios.post("/chats", { name, surName });
+    return data;
+  } catch (error) {
+    showError(error as AxiosError);
+  }
+};
+
+export const updateChat = async (id: string, name: string, surName: string) => {
+  try {
+    const { data } = await axios.put(`/chats/${id}`, { name, surName });
+    return data;
+  } catch (error) {
+    showError(error as AxiosError);
+  }
+};
+
+export const deleteChat = async (id: string) => {
+  try {
+    const { data } = await axios.delete(`/chats/${id}`);
+    return data;
+  } catch (error) {
+    showError(error as AxiosError);
+  }
+};
+
 export const getMessages = async (chatId: string) => {
   try {
     const { data } = await axios.get(`/messages/${chatId}`);

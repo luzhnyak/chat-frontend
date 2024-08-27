@@ -3,7 +3,14 @@ import { devtools, persist } from "zustand/middleware";
 
 import { IUser, IChat, IMessage } from "./types";
 import { currentUser, login, register } from "./services/chatApi";
-import { getChats, getCurrentChat, getMessages } from "./services/chatApi";
+import {
+  getChats,
+  getCurrentChat,
+  addChat,
+  updateChat,
+  deleteChat,
+} from "./services/chatApi";
+import { getMessages } from "./services/chatApi";
 
 interface TokenState {
   token: string | null;
@@ -92,6 +99,9 @@ interface ChatState {
   currentChat: IChat | null;
   getChats: () => void;
   getCurrentChat: (id: string, avatar: string) => void;
+  addChat: (name: string, surName: string) => void;
+  updateChat: (id: string, name: string, surName: string) => void;
+  deleteChat: (id: string) => void;
 }
 
 export const useChat = create<ChatState>()(
@@ -111,6 +121,43 @@ export const useChat = create<ChatState>()(
         try {
           const data = await getCurrentChat(id);
           set(() => ({ currentChat: { ...data, avatar } }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      addChat: async (name: string, surName: string) => {
+        try {
+          const data = await addChat(name, surName);
+          set((state) => ({
+            chats: [...state.chats!, data],
+          }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      updateChat: async (id: string, name: string, surName: string) => {
+        try {
+          const data = await updateChat(id, name, surName);
+          set((state) => ({
+            chats: [
+              ...state.chats!.map((item) => {
+                if (item._id === id) {
+                  return data;
+                }
+                return item;
+              }),
+            ],
+          }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      deleteChat: async (id: string) => {
+        try {
+          await deleteChat(id);
+          set((state) => ({
+            chats: [...state.chats!.filter((item) => item._id !== id)],
+          }));
         } catch (error) {
           console.error(error);
         }

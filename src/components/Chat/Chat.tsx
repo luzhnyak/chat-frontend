@@ -6,8 +6,12 @@ import HeaderRight from "../HeaderRight/HeaderRight";
 import ContactsList from "../ContactsList/ContactsList";
 import MessageForm from "../MessageForm/MessageForm";
 import Messages from "../Messages/Messages";
+import { useState } from "react";
+import Modal from "../Modal/Modal";
+import AddChatForm from "../Forms/AddChatForm";
 
 const Chat = () => {
+  const [showAddForm, setAddForm] = useState(false);
   const { logout, currentUser } = useAuth((state) => ({
     logout: state.logout,
     currentUser: state.currentUser,
@@ -31,9 +35,14 @@ const Chat = () => {
             />
           </div>
           <h1 className={css.userName}>{currentUser?.name}</h1>
-          <button className={css.logoutBtn} onClick={logout}>
-            Logout
-          </button>
+          <div className={css.btnWrapper}>
+            <button className={css.logoutBtn} onClick={() => setAddForm(true)}>
+              New
+            </button>
+            <button className={css.logoutBtn} onClick={logout}>
+              Logout
+            </button>
+          </div>
         </div>
         <div className={css.search}>
           <input className={css.searchInput} type="text" />
@@ -49,6 +58,11 @@ const Chat = () => {
           </>
         )}
       </div>
+      {showAddForm && (
+        <Modal onClose={() => setAddForm(false)}>
+          <AddChatForm onClose={() => setAddForm(false)} />
+        </Modal>
+      )}
     </div>
   );
 };

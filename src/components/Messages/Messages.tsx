@@ -30,14 +30,12 @@ const Messages = () => {
     socket.on(
       "message",
       (msg: { text: string; author: string; chatId: string }) => {
-        console.log("addd", msg);
-
         addMessage(msg.text, msg.author, msg.chatId);
       }
     );
 
     return () => {
-      socket.off("message"); // Вимкнення слухача перед відключенням
+      socket.off("message");
       disconnectSocket();
     };
   }, [token, addMessage]);

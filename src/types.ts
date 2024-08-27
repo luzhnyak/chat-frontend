@@ -19,4 +19,5 @@ export interface IChat {
   surName: string;
   avatar?: string;
   lastMessage?: string;
+  updatedAt: string;
 }

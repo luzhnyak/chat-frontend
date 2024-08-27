@@ -27,9 +27,11 @@ const ContactsList = () => {
               }}
             >
               <Contact
-                name={`${chat.name} ${chat.surName}`}
+                id={chat?._id || ""}
+                name={chat.name}
+                surName={chat.surName}
                 lastMessage={chat?.lastMessage || ""}
-                time="22/08/2024"
+                time={chat && new Date(chat.updatedAt!).toLocaleString()}
                 avatar={`/avatars/${idx + 1}.jpg`}
               />
             </li>
