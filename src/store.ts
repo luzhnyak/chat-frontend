@@ -104,6 +104,7 @@ interface ChatState {
   getCurrentChat: (id: string, avatar: string) => void;
   addChat: (name: string, surName: string) => void;
   updateChat: (id: string, name: string, surName: string) => void;
+  updateLastMessage: (id: string, text: string) => void;
   deleteChat: (id: string) => void;
 }
 
@@ -163,6 +164,22 @@ export const useChat = create<ChatState>()(
           console.error(error);
         }
       },
+      updateLastMessage: async (id: string, lastMessage: string) => {
+        try {
+          set((state) => ({
+            chats: [
+              ...state.chats!.map((item) => {
+                if (item._id === id) {
+                  return { ...item, lastMessage };
+                }
+                return item;
+              }),
+            ],
+          }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
       deleteChat: async (id: string) => {
         try {
           await deleteChat(id);
@@ -198,6 +215,8 @@ export const useMessage = create<MessageState>()(
       },
       addMessage: async (text: string, author: string, chatId: string) => {
         try {
+          const chatState = useChat.getState();
+          chatState.updateLastMessage(chatId, text);
           // const data = await addMessage(text, chatId);
           set((state) => ({
             messages: [

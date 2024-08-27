@@ -16,6 +16,8 @@
 
 .btn {
   position: absolute;
+  display: flex;
+  align-items: center;
   right: 20px;
   top: 50%;
   transform: translateY(-50%);

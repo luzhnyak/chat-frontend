@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import css from "./MessageForm.module.css";
 import { useAuth, useChat, useMessage } from "../../store";
 import { getSocket } from "../../socket";
+import telegramPlane from "../../images/telegram-plane.svg";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
@@ -44,7 +45,15 @@ const MessageForm = () => {
           }}
           value={message}
         />
-        <button className={css.btn}>Send</button>
+        <button className={css.btn}>
+          <img
+            className={css.btnIcon}
+            src={telegramPlane}
+            alt="Send"
+            width={20}
+            height={20}
+          />
+        </button>
       </form>
     </div>
   );
