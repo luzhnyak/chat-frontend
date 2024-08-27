@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { nanoid } from "nanoid";
 
 import { IUser, IChat, IMessage } from "./types";
 import { currentUser, login, register } from "./services/chatApi";
@@ -97,6 +98,8 @@ export const useAuth = create<AuthState>()(
 interface ChatState {
   chats: IChat[] | null;
   currentChat: IChat | null;
+  filter: string;
+  setFilter: (filter: string) => void;
   getChats: () => void;
   getCurrentChat: (id: string, avatar: string) => void;
   addChat: (name: string, surName: string) => void;
@@ -109,6 +112,14 @@ export const useChat = create<ChatState>()(
     (set) => ({
       chats: null,
       currentChat: null,
+      filter: "",
+      setFilter: async (filter: string) => {
+        try {
+          set(() => ({ filter }));
+        } catch (error) {
+          console.error(error);
+        }
+      },
       getChats: async () => {
         try {
           const data = await getChats();
@@ -191,7 +202,13 @@ export const useMessage = create<MessageState>()(
           set((state) => ({
             messages: [
               ...state.messages,
-              { text, author, chatId, createdAt: Date().toString() },
+              {
+                _id: nanoid(),
+                text,
+                author,
+                chatId,
+                createdAt: Date().toString(),
+              },
             ],
           }));
         } catch (error) {

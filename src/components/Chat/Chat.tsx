@@ -17,8 +17,9 @@ const Chat = () => {
     currentUser: state.currentUser,
   }));
 
-  const { currentChat } = useChat((state) => ({
+  const { currentChat, setFilter } = useChat((state) => ({
     currentChat: state.currentChat,
+    setFilter: state.setFilter,
   }));
 
   return (
@@ -45,7 +46,13 @@ const Chat = () => {
           </div>
         </div>
         <div className={css.search}>
-          <input className={css.searchInput} type="text" />
+          <input
+            className={css.searchInput}
+            type="text"
+            onChange={(event) => {
+              setFilter(event.target.value);
+            }}
+          />
         </div>
         <ContactsList />
       </div>

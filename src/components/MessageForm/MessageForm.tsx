@@ -21,7 +21,6 @@ const MessageForm = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log("message", message);
 
     if (currentChat) {
       if (message.trim()) {

@@ -21,7 +21,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 16px;
 }
@@ -68,4 +68,12 @@
   &&:hover {
     background-color: var(--primary-color-fon);
   }
+}
+
+.lastMessage {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 350px;
+  height: 24px;
 }
